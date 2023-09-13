@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "BirbParty.Grpc";
+option go_package = "github.com/birbparty/proto/birb";
+
+// Define what it means to be a birb
+service Birb {
+  rpc GetGameState (GameStateRequest) returns (GameState);
+  rpc ValidateAction (ValidateActionRequest) returns (ValidationResponse);
+}
+
+message BirbEvent {
+    int64 id = 1;
+    int64 playerId = 2;
+    string session = 3;
+    int64 eventType = 4;
+    string eventJson = 5;
+    google.protobuf.Timestamp createdAt = 6;
+}
+
+message BirbPlayer {
+    int64 id = 1;
+    string name = 2;
+    bool ai = 3;
+    string session = 4;
+    int64 userId = 5;
+    int64 state = 6;
+}
+
+message GameState {
+    int64 seed = 1;
+    repeated PlayerState playerStates = 2;
+    repeated int64 WaitingOnIds = 3;
+}
+
+message GameStateRequest {
+    int64 seed = 1;
+    repeated BirbPlayer players = 2;
+    repeated int32 events = 3;
+}
+
+message PlayerAction {
+    int64 playerId = 1;
+    int64 actionType = 2;
+    string actionJson = 3;
+}
+
+message PlayerState {
+    int64 playerId = 1;
+    string stateJson = 2;
+    repeated PlayerAction availableActions = 3;
+}
+
+message ValidateActionRequest {
+    int64 seed = 1;
+    PlayerAction action = 2;
+    repeated BirbPlayer players = 3;
+    repeated BirbEvent events = 4;
+}
+
+message ValidationResponse {
+    bool valid = 1;
+    string error = 2;
+}
