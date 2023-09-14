@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "+OMAiaLICJ4qVyjrsDdh9qjduZRN5KixA/WzVWAAjykA1YQG0y0ReVCjSU6aavjI0XkLpmaoG9x7Er6LG5+qJQ==",
+  "success": true,
+  "projectFilePath": "/Users/punk1290/git/proto/CSharp/CSharp.csproj",
+  "expectedPackageFiles": [
+    "/Users/punk1290/.nuget/packages/google.protobuf/3.24.3/google.protobuf.3.24.3.nupkg.sha512",
+    "/Users/punk1290/.nuget/packages/grpc.core/2.46.6/grpc.core.2.46.6.nupkg.sha512",
+    "/Users/punk1290/.nuget/packages/grpc.core.api/2.46.6/grpc.core.api.2.46.6.nupkg.sha512",
+    "/Users/punk1290/.nuget/packages/grpc.tools/2.58.0/grpc.tools.2.58.0.nupkg.sha512",
+    "/Users/punk1290/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}

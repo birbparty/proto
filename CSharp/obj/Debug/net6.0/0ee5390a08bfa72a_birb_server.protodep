@@ -1,0 +1,3 @@
+obj/Debug/net6.0/BirbServer.cs \
+obj/Debug/net6.0/BirbServerGrpc.cs: /Users/punk1290/.nuget/packages/grpc.tools/2.58.0/build/native/include/google/protobuf/timestamp.proto\
+ ../birb/birb_server.proto

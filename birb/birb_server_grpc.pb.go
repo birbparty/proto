@@ -63,7 +63,7 @@ func (c *birbClient) ValidateAction(ctx context.Context, in *ValidateActionReque
 type BirbServer interface {
 	GetGameState(context.Context, *GameStateRequest) (*GameState, error)
 	ValidateAction(context.Context, *ValidateActionRequest) (*ValidationResponse, error)
-	mustEmbedUnimplementedBirbServer()
+	MustEmbedUnimplementedBirbServer()
 }
 
 // UnimplementedBirbServer must be embedded to have forward compatible implementations.
@@ -76,13 +76,13 @@ func (UnimplementedBirbServer) GetGameState(context.Context, *GameStateRequest) 
 func (UnimplementedBirbServer) ValidateAction(context.Context, *ValidateActionRequest) (*ValidationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateAction not implemented")
 }
-func (UnimplementedBirbServer) mustEmbedUnimplementedBirbServer() {}
+func (UnimplementedBirbServer) MustEmbedUnimplementedBirbServer() {}
 
 // UnsafeBirbServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to BirbServer will
 // result in compilation errors.
 type UnsafeBirbServer interface {
-	mustEmbedUnimplementedBirbServer()
+	MustEmbedUnimplementedBirbServer()
 }
 
 func RegisterBirbServer(s grpc.ServiceRegistrar, srv BirbServer) {
