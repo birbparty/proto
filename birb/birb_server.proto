@@ -14,7 +14,7 @@ service Birb {
 message BirbEvent {
     int64 id = 1;
     int64 playerId = 2;
-    string session = 3;
+    int64 sessionId = 3;
     int64 eventType = 4;
     string eventJson = 5;
     google.protobuf.Timestamp createdAt = 6;
@@ -24,9 +24,8 @@ message BirbPlayer {
     int64 id = 1;
     string name = 2;
     bool ai = 3;
-    string session = 4;
-    int64 userId = 5;
-    int64 state = 6;
+    int64 sessionId = 4;
+    int64 state = 5;
 }
 
 message GameState {
@@ -38,7 +37,7 @@ message GameState {
 message GameStateRequest {
     int64 seed = 1;
     repeated BirbPlayer players = 2;
-    repeated int32 events = 3;
+    repeated BirbEvent events = 3;
 }
 
 message PlayerAction {
@@ -61,6 +60,6 @@ message ValidateActionRequest {
 }
 
 message ValidationResponse {
-    bool valid = 1;
-    string error = 2;
+    optional GameState gameState = 1;
+    optional string error = 2;
 }
