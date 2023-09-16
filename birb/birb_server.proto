@@ -35,7 +35,7 @@ message BirbEvent {
     optional int64 id = 1;
     int64 playerId = 2;
     EventType eventType = 3;
-    string eventJson = 4;
+    optional string eventJson = 4;
     optional google.protobuf.Timestamp createdAt = 5;
 }
 
@@ -44,7 +44,7 @@ message BirbPlayer {
     int64 ownerId = 2;
     string name = 3;
     bool ai = 4;
-    int64 state = 5;
+    optional int64 state = 5;
 }
 
 message GameState {
