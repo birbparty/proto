@@ -48,11 +48,10 @@ message BirbPlayer {
 }
 
 message GameState {
-    int64 ownerId = 1;
-    int64 seed = 2;
-    SessionStatus status = 3;
-    repeated PlayerState playerStates = 4;
-    repeated int64 WaitingOnIds = 5;
+    int64 seed = 1;
+    SessionStatus status = 2;
+    repeated PlayerState playerStates = 3;
+    repeated int64 WaitingOnIds = 4;
 }
 
 message GameStateRequest {
@@ -70,9 +69,10 @@ message PlayerState {
 
 message ValidateRequest {
     int64 seed = 1;
-    BirbEvent event = 2;
-    repeated BirbPlayer players = 3;
-    repeated BirbEvent events = 4;
+    int64 ownerId = 2;
+    BirbEvent event = 3;
+    repeated BirbPlayer players = 4;
+    repeated BirbEvent events = 5;
 }
 
 message ValidationResponse {
