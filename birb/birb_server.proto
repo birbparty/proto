@@ -30,10 +30,9 @@ enum SessionStatus {
 message BirbEvent {
     optional int64 id = 1;
     int64 playerId = 2;
-    int64 sessionId = 3;
-    int64 eventType = 4;
-    string eventJson = 5;
-    optional google.protobuf.Timestamp createdAt = 6;
+    int64 eventType = 3;
+    string eventJson = 4;
+    optional google.protobuf.Timestamp createdAt = 5;
 }
 
 message BirbPlayer {
@@ -41,17 +40,15 @@ message BirbPlayer {
     int64 ownerId = 2;
     string name = 3;
     bool ai = 4;
-    int64 sessionId = 5;
-    int64 state = 6;
+    int64 state = 5;
 }
 
 message GameState {
     int64 ownerId = 1;
-    int64 sessionId = 2;
-    int64 seed = 3;
-    SessionStatus status = 4;
-    repeated PlayerState playerStates = 5;
-    repeated int64 WaitingOnIds = 6;
+    int64 seed = 2;
+    SessionStatus status = 3;
+    repeated PlayerState playerStates = 4;
+    repeated int64 WaitingOnIds = 5;
 }
 
 message GameStateRequest {
