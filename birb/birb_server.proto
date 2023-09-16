@@ -8,30 +8,33 @@ option go_package = "github.com/birbparty/proto/birb";
 // Define what it means to be a birb
 service Birb {
   rpc GetGameState (GameStateRequest) returns (GameState);
-  rpc ValidateAction (ValidateActionRequest) returns (ValidationResponse);
+  rpc Validate (ValidateRequest) returns (ValidationResponse);
 }
 
 message BirbEvent {
-    int64 id = 1;
+    optional int64 id = 1;
     int64 playerId = 2;
     int64 sessionId = 3;
     int64 eventType = 4;
     string eventJson = 5;
-    google.protobuf.Timestamp createdAt = 6;
+    optional google.protobuf.Timestamp createdAt = 6;
 }
 
 message BirbPlayer {
     int64 id = 1;
-    string name = 2;
-    bool ai = 3;
-    int64 sessionId = 4;
-    int64 state = 5;
+    int64 ownerId = 2;
+    string name = 3;
+    bool ai = 4;
+    int64 sessionId = 5;
+    int64 state = 6;
 }
 
 message GameState {
-    int64 seed = 1;
-    repeated PlayerState playerStates = 2;
-    repeated int64 WaitingOnIds = 3;
+    int64 ownerId = 1;
+    int64 sessionId = 2;
+    int64 seed = 3;
+    repeated PlayerState playerStates = 4;
+    repeated int64 WaitingOnIds = 5;
 }
 
 message GameStateRequest {
@@ -40,21 +43,15 @@ message GameStateRequest {
     repeated BirbEvent events = 3;
 }
 
-message PlayerAction {
-    int64 playerId = 1;
-    int64 actionType = 2;
-    string actionJson = 3;
-}
-
 message PlayerState {
     int64 playerId = 1;
     string stateJson = 2;
-    repeated PlayerAction availableActions = 3;
+    repeated BirbEvent availableOptions = 3;
 }
 
-message ValidateActionRequest {
+message ValidateRequest {
     int64 seed = 1;
-    PlayerAction action = 2;
+    BirbEvent event = 2;
     repeated BirbPlayer players = 3;
     repeated BirbEvent events = 4;
 }
