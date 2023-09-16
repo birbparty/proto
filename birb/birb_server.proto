@@ -11,6 +11,10 @@ service Birb {
   rpc Validate (ValidateRequest) returns (ValidationResponse);
 }
 
+enum EventType {
+    StartGame = 0;
+}
+
 enum PlayerStatus {
     Idle = 0;
     Waiting = 1;
@@ -30,7 +34,7 @@ enum SessionStatus {
 message BirbEvent {
     optional int64 id = 1;
     int64 playerId = 2;
-    int64 eventType = 3;
+    EventType eventType = 3;
     string eventJson = 4;
     optional google.protobuf.Timestamp createdAt = 5;
 }
