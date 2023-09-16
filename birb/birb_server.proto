@@ -31,14 +31,6 @@ enum SessionStatus {
     Finished = 50;
 }
 
-message Garbage {
-    int64 id = 1;
-    int64 playerId = 2;
-    int64 targetId = 3;
-    int64 amount = 4;
-    optional google.protobuf.Timestamp createdAt = 5;
-}
-
 message BirbEvent {
     optional int64 id = 1;
     int64 playerId = 2;
