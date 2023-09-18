@@ -78,4 +78,5 @@ message ValidateRequest {
 message ValidationResponse {
     optional GameState gameState = 1;
     optional string error = 2;
+    repeated BirbEvent resultingEvents = 3;
 }
