@@ -12,6 +12,17 @@ service Birb {
   rpc GetValue (GetValueRequest) returns (GetValueResponse);
 }
 
+// Define the api available to birbs
+service Api {
+  rpc GetGameState (GetGameStateRequest) returns (GameState);
+}
+
+// Define the cache available to birbs
+service Cache {
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc Set (SetRequest) returns (SetResponse);
+}
+
 enum PlayerStatus {
     Idle = 0;
     Waiting = 1;
@@ -32,7 +43,7 @@ message BirbEvent {
     optional int64 id = 1;
     int64 playerId = 2;
     int64 eventType = 3;
-    optional bytes eventBytes = 6;
+    optional bytes eventData = 6;
     optional google.protobuf.Timestamp createdAt = 5;
 }
 
@@ -49,13 +60,16 @@ message GameState {
     SessionStatus status = 2;
     repeated PlayerState playerStates = 3;
     repeated int64 WaitingOnIds = 4;
-    bytes stateBytes = 6;
+    bytes stateData = 6;
 }
 
 message GameStateRequest {
     int64 seed = 1;
     repeated BirbPlayer players = 2;
-    repeated BirbEvent events = 3;
+}
+
+message GetGameStateRequest {
+    int64 gameSessionId = 1;
 }
 
 message PlayerState {
@@ -67,8 +81,8 @@ message PlayerState {
 
 message ExecuteRequest {
     int64 gameId = 1;
-    int64 ownerId = 2;
     BirbEvent event = 3;
+    GameState gameState = 4;
 }
 
 message ExecuteResponse {
@@ -88,4 +102,23 @@ message GetValueResponse {
     optional bytes value = 1;
     optional string error = 2;
     bool success = 3;
+}
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    optional bytes value = 1;
+    bool success = 2;
+}
+
+message SetRequest {
+    string key = 1;
+    bytes value = 2;
+    optional int64 ttl = 3;
+}
+
+message SetResponse {
+    bool success = 1;
 }

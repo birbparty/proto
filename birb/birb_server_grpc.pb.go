@@ -181,3 +181,220 @@ var Birb_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "birb/birb_server.proto",
 }
+
+const (
+	Api_GetGameState_FullMethodName = "/Api/GetGameState"
+)
+
+// ApiClient is the client API for Api service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ApiClient interface {
+	GetGameState(ctx context.Context, in *GetGameStateRequest, opts ...grpc.CallOption) (*GameState, error)
+}
+
+type apiClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewApiClient(cc grpc.ClientConnInterface) ApiClient {
+	return &apiClient{cc}
+}
+
+func (c *apiClient) GetGameState(ctx context.Context, in *GetGameStateRequest, opts ...grpc.CallOption) (*GameState, error) {
+	out := new(GameState)
+	err := c.cc.Invoke(ctx, Api_GetGameState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ApiServer is the server API for Api service.
+// All implementations must embed UnimplementedApiServer
+// for forward compatibility
+type ApiServer interface {
+	GetGameState(context.Context, *GetGameStateRequest) (*GameState, error)
+	mustEmbedUnimplementedApiServer()
+}
+
+// UnimplementedApiServer must be embedded to have forward compatible implementations.
+type UnimplementedApiServer struct {
+}
+
+func (UnimplementedApiServer) GetGameState(context.Context, *GetGameStateRequest) (*GameState, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGameState not implemented")
+}
+func (UnimplementedApiServer) mustEmbedUnimplementedApiServer() {}
+
+// UnsafeApiServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ApiServer will
+// result in compilation errors.
+type UnsafeApiServer interface {
+	mustEmbedUnimplementedApiServer()
+}
+
+func RegisterApiServer(s grpc.ServiceRegistrar, srv ApiServer) {
+	s.RegisterService(&Api_ServiceDesc, srv)
+}
+
+func _Api_GetGameState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGameStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).GetGameState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Api_GetGameState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).GetGameState(ctx, req.(*GetGameStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Api_ServiceDesc is the grpc.ServiceDesc for Api service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Api_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "Api",
+	HandlerType: (*ApiServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetGameState",
+			Handler:    _Api_GetGameState_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "birb/birb_server.proto",
+}
+
+const (
+	Cache_Get_FullMethodName = "/Cache/Get"
+	Cache_Set_FullMethodName = "/Cache/Set"
+)
+
+// CacheClient is the client API for Cache service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CacheClient interface {
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error)
+}
+
+type cacheClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCacheClient(cc grpc.ClientConnInterface) CacheClient {
+	return &cacheClient{cc}
+}
+
+func (c *cacheClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
+	out := new(GetResponse)
+	err := c.cc.Invoke(ctx, Cache_Get_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error) {
+	out := new(SetResponse)
+	err := c.cc.Invoke(ctx, Cache_Set_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CacheServer is the server API for Cache service.
+// All implementations must embed UnimplementedCacheServer
+// for forward compatibility
+type CacheServer interface {
+	Get(context.Context, *GetRequest) (*GetResponse, error)
+	Set(context.Context, *SetRequest) (*SetResponse, error)
+	mustEmbedUnimplementedCacheServer()
+}
+
+// UnimplementedCacheServer must be embedded to have forward compatible implementations.
+type UnimplementedCacheServer struct {
+}
+
+func (UnimplementedCacheServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedCacheServer) Set(context.Context, *SetRequest) (*SetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
+}
+func (UnimplementedCacheServer) mustEmbedUnimplementedCacheServer() {}
+
+// UnsafeCacheServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CacheServer will
+// result in compilation errors.
+type UnsafeCacheServer interface {
+	mustEmbedUnimplementedCacheServer()
+}
+
+func RegisterCacheServer(s grpc.ServiceRegistrar, srv CacheServer) {
+	s.RegisterService(&Cache_ServiceDesc, srv)
+}
+
+func _Cache_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cache_Get_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheServer).Get(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Cache_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheServer).Set(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cache_Set_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheServer).Set(ctx, req.(*SetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Cache_ServiceDesc is the grpc.ServiceDesc for Cache service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Cache_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "Cache",
+	HandlerType: (*CacheServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Get",
+			Handler:    _Cache_Get_Handler,
+		},
+		{
+			MethodName: "Set",
+			Handler:    _Cache_Set_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "birb/birb_server.proto",
+}
