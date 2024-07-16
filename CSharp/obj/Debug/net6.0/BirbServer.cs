@@ -25,43 +25,74 @@ namespace BirbParty.Grpc {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFiaXJiX3NlcnZlci5wcm90bxofZ29vZ2xlL3Byb3RvYnVmL3RpbWVzdGFt",
-            "cC5wcm90byKPAQoJQmlyYkV2ZW50EgoKAmlkGAEgASgDEhAKCHBsYXllcklk",
-            "GAIgASgDEg8KB3Nlc3Npb24YAyABKAkSEQoJZXZlbnRUeXBlGAQgASgDEhEK",
-            "CWV2ZW50SnNvbhgFIAEoCRItCgljcmVhdGVkQXQYBiABKAsyGi5nb29nbGUu",
-            "cHJvdG9idWYuVGltZXN0YW1wImIKCkJpcmJQbGF5ZXISCgoCaWQYASABKAMS",
-            "DAoEbmFtZRgCIAEoCRIKCgJhaRgDIAEoCBIPCgdzZXNzaW9uGAQgASgJEg4K",
-            "BnVzZXJJZBgFIAEoAxINCgVzdGF0ZRgGIAEoAyJTCglHYW1lU3RhdGUSDAoE",
-            "c2VlZBgBIAEoAxIiCgxwbGF5ZXJTdGF0ZXMYAiADKAsyDC5QbGF5ZXJTdGF0",
-            "ZRIUCgxXYWl0aW5nT25JZHMYAyADKAMiTgoQR2FtZVN0YXRlUmVxdWVzdBIM",
-            "CgRzZWVkGAEgASgDEhwKB3BsYXllcnMYAiADKAsyCy5CaXJiUGxheWVyEg4K",
-            "BmV2ZW50cxgDIAMoBSJICgxQbGF5ZXJBY3Rpb24SEAoIcGxheWVySWQYASAB",
-            "KAMSEgoKYWN0aW9uVHlwZRgCIAEoAxISCgphY3Rpb25Kc29uGAMgASgJIlsK",
-            "C1BsYXllclN0YXRlEhAKCHBsYXllcklkGAEgASgDEhEKCXN0YXRlSnNvbhgC",
-            "IAEoCRInChBhdmFpbGFibGVBY3Rpb25zGAMgAygLMg0uUGxheWVyQWN0aW9u",
-            "In4KFVZhbGlkYXRlQWN0aW9uUmVxdWVzdBIMCgRzZWVkGAEgASgDEh0KBmFj",
-            "dGlvbhgCIAEoCzINLlBsYXllckFjdGlvbhIcCgdwbGF5ZXJzGAMgAygLMgsu",
-            "QmlyYlBsYXllchIaCgZldmVudHMYBCADKAsyCi5CaXJiRXZlbnQiMgoSVmFs",
-            "aWRhdGlvblJlc3BvbnNlEg0KBXZhbGlkGAEgASgIEg0KBWVycm9yGAIgASgJ",
-            "MnQKBEJpcmISLQoMR2V0R2FtZVN0YXRlEhEuR2FtZVN0YXRlUmVxdWVzdBoK",
-            "LkdhbWVTdGF0ZRI9Cg5WYWxpZGF0ZUFjdGlvbhIWLlZhbGlkYXRlQWN0aW9u",
-            "UmVxdWVzdBoTLlZhbGlkYXRpb25SZXNwb25zZUIyWh9naXRodWIuY29tL2Jp",
-            "cmJwYXJ0eS9wcm90by9iaXJiqgIOQmlyYlBhcnR5LkdycGNiBnByb3RvMw=="));
+            "cC5wcm90byK8AQoJQmlyYkV2ZW50Eg8KAmlkGAEgASgDSACIAQESEAoIcGxh",
+            "eWVySWQYAiABKAMSHQoJZXZlbnRUeXBlGAMgASgOMgouRXZlbnRUeXBlEhYK",
+            "CWV2ZW50SnNvbhgEIAEoCUgBiAEBEjIKCWNyZWF0ZWRBdBgFIAEoCzIaLmdv",
+            "b2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBIAogBAUIFCgNfaWRCDAoKX2V2ZW50",
+            "SnNvbkIMCgpfY3JlYXRlZEF0ImEKCkJpcmJQbGF5ZXISCgoCaWQYASABKAMS",
+            "DwoHb3duZXJJZBgCIAEoAxIMCgRuYW1lGAMgASgJEgoKAmFpGAQgASgIEhIK",
+            "BXN0YXRlGAUgASgDSACIAQFCCAoGX3N0YXRlInMKCUdhbWVTdGF0ZRIMCgRz",
+            "ZWVkGAEgASgDEh4KBnN0YXR1cxgCIAEoDjIOLlNlc3Npb25TdGF0dXMSIgoM",
+            "cGxheWVyU3RhdGVzGAMgAygLMgwuUGxheWVyU3RhdGUSFAoMV2FpdGluZ09u",
+            "SWRzGAQgAygDIloKEEdhbWVTdGF0ZVJlcXVlc3QSDAoEc2VlZBgBIAEoAxIc",
+            "CgdwbGF5ZXJzGAIgAygLMgsuQmlyYlBsYXllchIaCgZldmVudHMYAyADKAsy",
+            "Ci5CaXJiRXZlbnQidwoLUGxheWVyU3RhdGUSEAoIcGxheWVySWQYASABKAMS",
+            "HQoGc3RhdHVzGAIgASgOMg0uUGxheWVyU3RhdHVzEhEKCXN0YXRlSnNvbhgD",
+            "IAEoCRIkChBhdmFpbGFibGVPcHRpb25zGAQgAygLMgouQmlyYkV2ZW50IoUB",
+            "Cg9WYWxpZGF0ZVJlcXVlc3QSDAoEc2VlZBgBIAEoAxIPCgdvd25lcklkGAIg",
+            "ASgDEhkKBWV2ZW50GAMgASgLMgouQmlyYkV2ZW50EhwKB3BsYXllcnMYBCAD",
+            "KAsyCy5CaXJiUGxheWVyEhoKBmV2ZW50cxgFIAMoCzIKLkJpcmJFdmVudCKJ",
+            "AQoSVmFsaWRhdGlvblJlc3BvbnNlEiIKCWdhbWVTdGF0ZRgBIAEoCzIKLkdh",
+            "bWVTdGF0ZUgAiAEBEhIKBWVycm9yGAIgASgJSAGIAQESIwoPcmVzdWx0aW5n",
+            "RXZlbnRzGAMgAygLMgouQmlyYkV2ZW50QgwKCl9nYW1lU3RhdGVCCAoGX2Vy",
+            "cm9yKhoKCUV2ZW50VHlwZRINCglTdGFydEdhbWUQACoxCgxQbGF5ZXJTdGF0",
+            "dXMSCAoESWRsZRAAEgsKB1dhaXRpbmcQARIKCgZBY3RpdmUQCiqeAQoNU2Vz",
+            "c2lvblN0YXR1cxIJCgVMb2JieRAAEhMKD1dhaXRpbmdPblBsYXllchABEhoK",
+            "FldhaXRpbmdPblNlcnZlclRvU3RhcnQQAhILCgdQbGF5aW5nEAoSGgoWUGxh",
+            "eWluZ1dhaXRpbmdPblBsYXllchALEhoKFlBsYXlpbmdXYWl0aW5nT25TZXJ2",
+            "ZXIQDBIMCghGaW5pc2hlZBAyMmgKBEJpcmISLQoMR2V0R2FtZVN0YXRlEhEu",
+            "R2FtZVN0YXRlUmVxdWVzdBoKLkdhbWVTdGF0ZRIxCghWYWxpZGF0ZRIQLlZh",
+            "bGlkYXRlUmVxdWVzdBoTLlZhbGlkYXRpb25SZXNwb25zZUIyWh9naXRodWIu",
+            "Y29tL2JpcmJwYXJ0eS9wcm90by9iaXJiqgIOQmlyYlBhcnR5LkdycGNiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.BirbEvent), global::BirbParty.Grpc.BirbEvent.Parser, new[]{ "Id", "PlayerId", "Session", "EventType", "EventJson", "CreatedAt" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.BirbPlayer), global::BirbParty.Grpc.BirbPlayer.Parser, new[]{ "Id", "Name", "Ai", "Session", "UserId", "State" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.GameState), global::BirbParty.Grpc.GameState.Parser, new[]{ "Seed", "PlayerStates", "WaitingOnIds" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::BirbParty.Grpc.EventType), typeof(global::BirbParty.Grpc.PlayerStatus), typeof(global::BirbParty.Grpc.SessionStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.BirbEvent), global::BirbParty.Grpc.BirbEvent.Parser, new[]{ "Id", "PlayerId", "EventType", "EventJson", "CreatedAt" }, new[]{ "Id", "EventJson", "CreatedAt" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.BirbPlayer), global::BirbParty.Grpc.BirbPlayer.Parser, new[]{ "Id", "OwnerId", "Name", "Ai", "State" }, new[]{ "State" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.GameState), global::BirbParty.Grpc.GameState.Parser, new[]{ "Seed", "Status", "PlayerStates", "WaitingOnIds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.GameStateRequest), global::BirbParty.Grpc.GameStateRequest.Parser, new[]{ "Seed", "Players", "Events" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.PlayerAction), global::BirbParty.Grpc.PlayerAction.Parser, new[]{ "PlayerId", "ActionType", "ActionJson" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.PlayerState), global::BirbParty.Grpc.PlayerState.Parser, new[]{ "PlayerId", "StateJson", "AvailableActions" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.ValidateActionRequest), global::BirbParty.Grpc.ValidateActionRequest.Parser, new[]{ "Seed", "Action", "Players", "Events" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.ValidationResponse), global::BirbParty.Grpc.ValidationResponse.Parser, new[]{ "Valid", "Error" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.PlayerState), global::BirbParty.Grpc.PlayerState.Parser, new[]{ "PlayerId", "Status", "StateJson", "AvailableOptions" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.ValidateRequest), global::BirbParty.Grpc.ValidateRequest.Parser, new[]{ "Seed", "OwnerId", "Event", "Players", "Events" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::BirbParty.Grpc.ValidationResponse), global::BirbParty.Grpc.ValidationResponse.Parser, new[]{ "GameState", "Error", "ResultingEvents" }, new[]{ "GameState", "Error" }, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum EventType {
+    [pbr::OriginalName("StartGame")] StartGame = 0,
+  }
+
+  public enum PlayerStatus {
+    [pbr::OriginalName("Idle")] Idle = 0,
+    [pbr::OriginalName("Waiting")] Waiting = 1,
+    [pbr::OriginalName("Active")] Active = 10,
+  }
+
+  public enum SessionStatus {
+    [pbr::OriginalName("Lobby")] Lobby = 0,
+    [pbr::OriginalName("WaitingOnPlayer")] WaitingOnPlayer = 1,
+    [pbr::OriginalName("WaitingOnServerToStart")] WaitingOnServerToStart = 2,
+    [pbr::OriginalName("Playing")] Playing = 10,
+    [pbr::OriginalName("PlayingWaitingOnPlayer")] PlayingWaitingOnPlayer = 11,
+    [pbr::OriginalName("PlayingWaitingOnServer")] PlayingWaitingOnServer = 12,
+    [pbr::OriginalName("Finished")] Finished = 50,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class BirbEvent : pb::IMessage<BirbEvent>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -70,6 +101,7 @@ namespace BirbParty.Grpc {
   {
     private static readonly pb::MessageParser<BirbEvent> _parser = new pb::MessageParser<BirbEvent>(() => new BirbEvent());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<BirbEvent> Parser { get { return _parser; } }
@@ -97,9 +129,9 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BirbEvent(BirbEvent other) : this() {
+      _hasBits0 = other._hasBits0;
       id_ = other.id_;
       playerId_ = other.playerId_;
-      session_ = other.session_;
       eventType_ = other.eventType_;
       eventJson_ = other.eventJson_;
       createdAt_ = other.createdAt_ != null ? other.createdAt_.Clone() : null;
@@ -114,14 +146,29 @@ namespace BirbParty.Grpc {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 1;
+    private readonly static long IdDefaultValue = 0L;
+
     private long id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long Id {
-      get { return id_; }
+      get { if ((_hasBits0 & 1) != 0) { return id_; } else { return IdDefaultValue; } }
       set {
+        _hasBits0 |= 1;
         id_ = value;
       }
+    }
+    /// <summary>Gets whether the "id" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasId {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "id" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearId() {
+      _hasBits0 &= ~1;
     }
 
     /// <summary>Field number for the "playerId" field.</summary>
@@ -136,24 +183,12 @@ namespace BirbParty.Grpc {
       }
     }
 
-    /// <summary>Field number for the "session" field.</summary>
-    public const int SessionFieldNumber = 3;
-    private string session_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Session {
-      get { return session_; }
-      set {
-        session_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "eventType" field.</summary>
-    public const int EventTypeFieldNumber = 4;
-    private long eventType_;
+    public const int EventTypeFieldNumber = 3;
+    private global::BirbParty.Grpc.EventType eventType_ = global::BirbParty.Grpc.EventType.StartGame;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long EventType {
+    public global::BirbParty.Grpc.EventType EventType {
       get { return eventType_; }
       set {
         eventType_ = value;
@@ -161,19 +196,33 @@ namespace BirbParty.Grpc {
     }
 
     /// <summary>Field number for the "eventJson" field.</summary>
-    public const int EventJsonFieldNumber = 5;
-    private string eventJson_ = "";
+    public const int EventJsonFieldNumber = 4;
+    private readonly static string EventJsonDefaultValue = "";
+
+    private string eventJson_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string EventJson {
-      get { return eventJson_; }
+      get { return eventJson_ ?? EventJsonDefaultValue; }
       set {
         eventJson_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
+    /// <summary>Gets whether the "eventJson" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasEventJson {
+      get { return eventJson_ != null; }
+    }
+    /// <summary>Clears the value of the "eventJson" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearEventJson() {
+      eventJson_ = null;
+    }
 
     /// <summary>Field number for the "createdAt" field.</summary>
-    public const int CreatedAtFieldNumber = 6;
+    public const int CreatedAtFieldNumber = 5;
     private global::Google.Protobuf.WellKnownTypes.Timestamp createdAt_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -201,7 +250,6 @@ namespace BirbParty.Grpc {
       }
       if (Id != other.Id) return false;
       if (PlayerId != other.PlayerId) return false;
-      if (Session != other.Session) return false;
       if (EventType != other.EventType) return false;
       if (EventJson != other.EventJson) return false;
       if (!object.Equals(CreatedAt, other.CreatedAt)) return false;
@@ -212,11 +260,10 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id != 0L) hash ^= Id.GetHashCode();
+      if (HasId) hash ^= Id.GetHashCode();
       if (PlayerId != 0L) hash ^= PlayerId.GetHashCode();
-      if (Session.Length != 0) hash ^= Session.GetHashCode();
-      if (EventType != 0L) hash ^= EventType.GetHashCode();
-      if (EventJson.Length != 0) hash ^= EventJson.GetHashCode();
+      if (EventType != global::BirbParty.Grpc.EventType.StartGame) hash ^= EventType.GetHashCode();
+      if (HasEventJson) hash ^= EventJson.GetHashCode();
       if (createdAt_ != null) hash ^= CreatedAt.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -236,7 +283,7 @@ namespace BirbParty.Grpc {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Id != 0L) {
+      if (HasId) {
         output.WriteRawTag(8);
         output.WriteInt64(Id);
       }
@@ -244,20 +291,16 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(16);
         output.WriteInt64(PlayerId);
       }
-      if (Session.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Session);
+      if (EventType != global::BirbParty.Grpc.EventType.StartGame) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) EventType);
       }
-      if (EventType != 0L) {
-        output.WriteRawTag(32);
-        output.WriteInt64(EventType);
-      }
-      if (EventJson.Length != 0) {
-        output.WriteRawTag(42);
+      if (HasEventJson) {
+        output.WriteRawTag(34);
         output.WriteString(EventJson);
       }
       if (createdAt_ != null) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(42);
         output.WriteMessage(CreatedAt);
       }
       if (_unknownFields != null) {
@@ -270,7 +313,7 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id != 0L) {
+      if (HasId) {
         output.WriteRawTag(8);
         output.WriteInt64(Id);
       }
@@ -278,20 +321,16 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(16);
         output.WriteInt64(PlayerId);
       }
-      if (Session.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Session);
+      if (EventType != global::BirbParty.Grpc.EventType.StartGame) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) EventType);
       }
-      if (EventType != 0L) {
-        output.WriteRawTag(32);
-        output.WriteInt64(EventType);
-      }
-      if (EventJson.Length != 0) {
-        output.WriteRawTag(42);
+      if (HasEventJson) {
+        output.WriteRawTag(34);
         output.WriteString(EventJson);
       }
       if (createdAt_ != null) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(42);
         output.WriteMessage(CreatedAt);
       }
       if (_unknownFields != null) {
@@ -304,19 +343,16 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Id != 0L) {
+      if (HasId) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
       }
       if (PlayerId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(PlayerId);
       }
-      if (Session.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Session);
+      if (EventType != global::BirbParty.Grpc.EventType.StartGame) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) EventType);
       }
-      if (EventType != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(EventType);
-      }
-      if (EventJson.Length != 0) {
+      if (HasEventJson) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(EventJson);
       }
       if (createdAt_ != null) {
@@ -334,19 +370,16 @@ namespace BirbParty.Grpc {
       if (other == null) {
         return;
       }
-      if (other.Id != 0L) {
+      if (other.HasId) {
         Id = other.Id;
       }
       if (other.PlayerId != 0L) {
         PlayerId = other.PlayerId;
       }
-      if (other.Session.Length != 0) {
-        Session = other.Session;
-      }
-      if (other.EventType != 0L) {
+      if (other.EventType != global::BirbParty.Grpc.EventType.StartGame) {
         EventType = other.EventType;
       }
-      if (other.EventJson.Length != 0) {
+      if (other.HasEventJson) {
         EventJson = other.EventJson;
       }
       if (other.createdAt_ != null) {
@@ -378,19 +411,15 @@ namespace BirbParty.Grpc {
             PlayerId = input.ReadInt64();
             break;
           }
-          case 26: {
-            Session = input.ReadString();
+          case 24: {
+            EventType = (global::BirbParty.Grpc.EventType) input.ReadEnum();
             break;
           }
-          case 32: {
-            EventType = input.ReadInt64();
-            break;
-          }
-          case 42: {
+          case 34: {
             EventJson = input.ReadString();
             break;
           }
-          case 50: {
+          case 42: {
             if (createdAt_ == null) {
               CreatedAt = new global::Google.Protobuf.WellKnownTypes.Timestamp();
             }
@@ -420,19 +449,15 @@ namespace BirbParty.Grpc {
             PlayerId = input.ReadInt64();
             break;
           }
-          case 26: {
-            Session = input.ReadString();
+          case 24: {
+            EventType = (global::BirbParty.Grpc.EventType) input.ReadEnum();
             break;
           }
-          case 32: {
-            EventType = input.ReadInt64();
-            break;
-          }
-          case 42: {
+          case 34: {
             EventJson = input.ReadString();
             break;
           }
-          case 50: {
+          case 42: {
             if (createdAt_ == null) {
               CreatedAt = new global::Google.Protobuf.WellKnownTypes.Timestamp();
             }
@@ -453,6 +478,7 @@ namespace BirbParty.Grpc {
   {
     private static readonly pb::MessageParser<BirbPlayer> _parser = new pb::MessageParser<BirbPlayer>(() => new BirbPlayer());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<BirbPlayer> Parser { get { return _parser; } }
@@ -480,11 +506,11 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BirbPlayer(BirbPlayer other) : this() {
+      _hasBits0 = other._hasBits0;
       id_ = other.id_;
+      ownerId_ = other.ownerId_;
       name_ = other.name_;
       ai_ = other.ai_;
-      session_ = other.session_;
-      userId_ = other.userId_;
       state_ = other.state_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -507,8 +533,20 @@ namespace BirbParty.Grpc {
       }
     }
 
+    /// <summary>Field number for the "ownerId" field.</summary>
+    public const int OwnerIdFieldNumber = 2;
+    private long ownerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long OwnerId {
+      get { return ownerId_; }
+      set {
+        ownerId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 2;
+    public const int NameFieldNumber = 3;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -520,7 +558,7 @@ namespace BirbParty.Grpc {
     }
 
     /// <summary>Field number for the "ai" field.</summary>
-    public const int AiFieldNumber = 3;
+    public const int AiFieldNumber = 4;
     private bool ai_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -531,40 +569,31 @@ namespace BirbParty.Grpc {
       }
     }
 
-    /// <summary>Field number for the "session" field.</summary>
-    public const int SessionFieldNumber = 4;
-    private string session_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Session {
-      get { return session_; }
-      set {
-        session_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "userId" field.</summary>
-    public const int UserIdFieldNumber = 5;
-    private long userId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long UserId {
-      get { return userId_; }
-      set {
-        userId_ = value;
-      }
-    }
-
     /// <summary>Field number for the "state" field.</summary>
-    public const int StateFieldNumber = 6;
+    public const int StateFieldNumber = 5;
+    private readonly static long StateDefaultValue = 0L;
+
     private long state_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public long State {
-      get { return state_; }
+      get { if ((_hasBits0 & 1) != 0) { return state_; } else { return StateDefaultValue; } }
       set {
+        _hasBits0 |= 1;
         state_ = value;
       }
+    }
+    /// <summary>Gets whether the "state" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasState {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "state" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearState() {
+      _hasBits0 &= ~1;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -583,10 +612,9 @@ namespace BirbParty.Grpc {
         return true;
       }
       if (Id != other.Id) return false;
+      if (OwnerId != other.OwnerId) return false;
       if (Name != other.Name) return false;
       if (Ai != other.Ai) return false;
-      if (Session != other.Session) return false;
-      if (UserId != other.UserId) return false;
       if (State != other.State) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -596,11 +624,10 @@ namespace BirbParty.Grpc {
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0L) hash ^= Id.GetHashCode();
+      if (OwnerId != 0L) hash ^= OwnerId.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Ai != false) hash ^= Ai.GetHashCode();
-      if (Session.Length != 0) hash ^= Session.GetHashCode();
-      if (UserId != 0L) hash ^= UserId.GetHashCode();
-      if (State != 0L) hash ^= State.GetHashCode();
+      if (HasState) hash ^= State.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -623,24 +650,20 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(Id);
       }
+      if (OwnerId != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(OwnerId);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (Ai != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteBool(Ai);
       }
-      if (Session.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Session);
-      }
-      if (UserId != 0L) {
+      if (HasState) {
         output.WriteRawTag(40);
-        output.WriteInt64(UserId);
-      }
-      if (State != 0L) {
-        output.WriteRawTag(48);
         output.WriteInt64(State);
       }
       if (_unknownFields != null) {
@@ -657,24 +680,20 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(Id);
       }
+      if (OwnerId != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(OwnerId);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (Ai != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteBool(Ai);
       }
-      if (Session.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Session);
-      }
-      if (UserId != 0L) {
+      if (HasState) {
         output.WriteRawTag(40);
-        output.WriteInt64(UserId);
-      }
-      if (State != 0L) {
-        output.WriteRawTag(48);
         output.WriteInt64(State);
       }
       if (_unknownFields != null) {
@@ -690,19 +709,16 @@ namespace BirbParty.Grpc {
       if (Id != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
       }
+      if (OwnerId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(OwnerId);
+      }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (Ai != false) {
         size += 1 + 1;
       }
-      if (Session.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Session);
-      }
-      if (UserId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserId);
-      }
-      if (State != 0L) {
+      if (HasState) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(State);
       }
       if (_unknownFields != null) {
@@ -720,19 +736,16 @@ namespace BirbParty.Grpc {
       if (other.Id != 0L) {
         Id = other.Id;
       }
+      if (other.OwnerId != 0L) {
+        OwnerId = other.OwnerId;
+      }
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
       if (other.Ai != false) {
         Ai = other.Ai;
       }
-      if (other.Session.Length != 0) {
-        Session = other.Session;
-      }
-      if (other.UserId != 0L) {
-        UserId = other.UserId;
-      }
-      if (other.State != 0L) {
+      if (other.HasState) {
         State = other.State;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -754,23 +767,19 @@ namespace BirbParty.Grpc {
             Id = input.ReadInt64();
             break;
           }
-          case 18: {
+          case 16: {
+            OwnerId = input.ReadInt64();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
-          case 24: {
+          case 32: {
             Ai = input.ReadBool();
             break;
           }
-          case 34: {
-            Session = input.ReadString();
-            break;
-          }
           case 40: {
-            UserId = input.ReadInt64();
-            break;
-          }
-          case 48: {
             State = input.ReadInt64();
             break;
           }
@@ -793,23 +802,19 @@ namespace BirbParty.Grpc {
             Id = input.ReadInt64();
             break;
           }
-          case 18: {
+          case 16: {
+            OwnerId = input.ReadInt64();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
-          case 24: {
+          case 32: {
             Ai = input.ReadBool();
             break;
           }
-          case 34: {
-            Session = input.ReadString();
-            break;
-          }
           case 40: {
-            UserId = input.ReadInt64();
-            break;
-          }
-          case 48: {
             State = input.ReadInt64();
             break;
           }
@@ -855,6 +860,7 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GameState(GameState other) : this() {
       seed_ = other.seed_;
+      status_ = other.status_;
       playerStates_ = other.playerStates_.Clone();
       waitingOnIds_ = other.waitingOnIds_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -878,10 +884,22 @@ namespace BirbParty.Grpc {
       }
     }
 
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 2;
+    private global::BirbParty.Grpc.SessionStatus status_ = global::BirbParty.Grpc.SessionStatus.Lobby;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::BirbParty.Grpc.SessionStatus Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
     /// <summary>Field number for the "playerStates" field.</summary>
-    public const int PlayerStatesFieldNumber = 2;
+    public const int PlayerStatesFieldNumber = 3;
     private static readonly pb::FieldCodec<global::BirbParty.Grpc.PlayerState> _repeated_playerStates_codec
-        = pb::FieldCodec.ForMessage(18, global::BirbParty.Grpc.PlayerState.Parser);
+        = pb::FieldCodec.ForMessage(26, global::BirbParty.Grpc.PlayerState.Parser);
     private readonly pbc::RepeatedField<global::BirbParty.Grpc.PlayerState> playerStates_ = new pbc::RepeatedField<global::BirbParty.Grpc.PlayerState>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -890,9 +908,9 @@ namespace BirbParty.Grpc {
     }
 
     /// <summary>Field number for the "WaitingOnIds" field.</summary>
-    public const int WaitingOnIdsFieldNumber = 3;
+    public const int WaitingOnIdsFieldNumber = 4;
     private static readonly pb::FieldCodec<long> _repeated_waitingOnIds_codec
-        = pb::FieldCodec.ForInt64(26);
+        = pb::FieldCodec.ForInt64(34);
     private readonly pbc::RepeatedField<long> waitingOnIds_ = new pbc::RepeatedField<long>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -916,6 +934,7 @@ namespace BirbParty.Grpc {
         return true;
       }
       if (Seed != other.Seed) return false;
+      if (Status != other.Status) return false;
       if(!playerStates_.Equals(other.playerStates_)) return false;
       if(!waitingOnIds_.Equals(other.waitingOnIds_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -926,6 +945,7 @@ namespace BirbParty.Grpc {
     public override int GetHashCode() {
       int hash = 1;
       if (Seed != 0L) hash ^= Seed.GetHashCode();
+      if (Status != global::BirbParty.Grpc.SessionStatus.Lobby) hash ^= Status.GetHashCode();
       hash ^= playerStates_.GetHashCode();
       hash ^= waitingOnIds_.GetHashCode();
       if (_unknownFields != null) {
@@ -950,6 +970,10 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(Seed);
       }
+      if (Status != global::BirbParty.Grpc.SessionStatus.Lobby) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Status);
+      }
       playerStates_.WriteTo(output, _repeated_playerStates_codec);
       waitingOnIds_.WriteTo(output, _repeated_waitingOnIds_codec);
       if (_unknownFields != null) {
@@ -966,6 +990,10 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(Seed);
       }
+      if (Status != global::BirbParty.Grpc.SessionStatus.Lobby) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Status);
+      }
       playerStates_.WriteTo(ref output, _repeated_playerStates_codec);
       waitingOnIds_.WriteTo(ref output, _repeated_waitingOnIds_codec);
       if (_unknownFields != null) {
@@ -980,6 +1008,9 @@ namespace BirbParty.Grpc {
       int size = 0;
       if (Seed != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Seed);
+      }
+      if (Status != global::BirbParty.Grpc.SessionStatus.Lobby) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
       }
       size += playerStates_.CalculateSize(_repeated_playerStates_codec);
       size += waitingOnIds_.CalculateSize(_repeated_waitingOnIds_codec);
@@ -997,6 +1028,9 @@ namespace BirbParty.Grpc {
       }
       if (other.Seed != 0L) {
         Seed = other.Seed;
+      }
+      if (other.Status != global::BirbParty.Grpc.SessionStatus.Lobby) {
+        Status = other.Status;
       }
       playerStates_.Add(other.playerStates_);
       waitingOnIds_.Add(other.waitingOnIds_);
@@ -1019,12 +1053,16 @@ namespace BirbParty.Grpc {
             Seed = input.ReadInt64();
             break;
           }
-          case 18: {
+          case 16: {
+            Status = (global::BirbParty.Grpc.SessionStatus) input.ReadEnum();
+            break;
+          }
+          case 26: {
             playerStates_.AddEntriesFrom(input, _repeated_playerStates_codec);
             break;
           }
-          case 26:
-          case 24: {
+          case 34:
+          case 32: {
             waitingOnIds_.AddEntriesFrom(input, _repeated_waitingOnIds_codec);
             break;
           }
@@ -1047,12 +1085,16 @@ namespace BirbParty.Grpc {
             Seed = input.ReadInt64();
             break;
           }
-          case 18: {
+          case 16: {
+            Status = (global::BirbParty.Grpc.SessionStatus) input.ReadEnum();
+            break;
+          }
+          case 26: {
             playerStates_.AddEntriesFrom(ref input, _repeated_playerStates_codec);
             break;
           }
-          case 26:
-          case 24: {
+          case 34:
+          case 32: {
             waitingOnIds_.AddEntriesFrom(ref input, _repeated_waitingOnIds_codec);
             break;
           }
@@ -1134,12 +1176,12 @@ namespace BirbParty.Grpc {
 
     /// <summary>Field number for the "events" field.</summary>
     public const int EventsFieldNumber = 3;
-    private static readonly pb::FieldCodec<int> _repeated_events_codec
-        = pb::FieldCodec.ForInt32(26);
-    private readonly pbc::RepeatedField<int> events_ = new pbc::RepeatedField<int>();
+    private static readonly pb::FieldCodec<global::BirbParty.Grpc.BirbEvent> _repeated_events_codec
+        = pb::FieldCodec.ForMessage(26, global::BirbParty.Grpc.BirbEvent.Parser);
+    private readonly pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> events_ = new pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<int> Events {
+    public pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> Events {
       get { return events_; }
     }
 
@@ -1266,8 +1308,7 @@ namespace BirbParty.Grpc {
             players_.AddEntriesFrom(input, _repeated_players_codec);
             break;
           }
-          case 26:
-          case 24: {
+          case 26: {
             events_.AddEntriesFrom(input, _repeated_events_codec);
             break;
           }
@@ -1294,272 +1335,8 @@ namespace BirbParty.Grpc {
             players_.AddEntriesFrom(ref input, _repeated_players_codec);
             break;
           }
-          case 26:
-          case 24: {
+          case 26: {
             events_.AddEntriesFrom(ref input, _repeated_events_codec);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class PlayerAction : pb::IMessage<PlayerAction>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<PlayerAction> _parser = new pb::MessageParser<PlayerAction>(() => new PlayerAction());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<PlayerAction> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[4]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PlayerAction() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PlayerAction(PlayerAction other) : this() {
-      playerId_ = other.playerId_;
-      actionType_ = other.actionType_;
-      actionJson_ = other.actionJson_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PlayerAction Clone() {
-      return new PlayerAction(this);
-    }
-
-    /// <summary>Field number for the "playerId" field.</summary>
-    public const int PlayerIdFieldNumber = 1;
-    private long playerId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long PlayerId {
-      get { return playerId_; }
-      set {
-        playerId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "actionType" field.</summary>
-    public const int ActionTypeFieldNumber = 2;
-    private long actionType_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long ActionType {
-      get { return actionType_; }
-      set {
-        actionType_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "actionJson" field.</summary>
-    public const int ActionJsonFieldNumber = 3;
-    private string actionJson_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ActionJson {
-      get { return actionJson_; }
-      set {
-        actionJson_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as PlayerAction);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(PlayerAction other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (PlayerId != other.PlayerId) return false;
-      if (ActionType != other.ActionType) return false;
-      if (ActionJson != other.ActionJson) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (PlayerId != 0L) hash ^= PlayerId.GetHashCode();
-      if (ActionType != 0L) hash ^= ActionType.GetHashCode();
-      if (ActionJson.Length != 0) hash ^= ActionJson.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (PlayerId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(PlayerId);
-      }
-      if (ActionType != 0L) {
-        output.WriteRawTag(16);
-        output.WriteInt64(ActionType);
-      }
-      if (ActionJson.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ActionJson);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (PlayerId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(PlayerId);
-      }
-      if (ActionType != 0L) {
-        output.WriteRawTag(16);
-        output.WriteInt64(ActionType);
-      }
-      if (ActionJson.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ActionJson);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (PlayerId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(PlayerId);
-      }
-      if (ActionType != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ActionType);
-      }
-      if (ActionJson.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ActionJson);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(PlayerAction other) {
-      if (other == null) {
-        return;
-      }
-      if (other.PlayerId != 0L) {
-        PlayerId = other.PlayerId;
-      }
-      if (other.ActionType != 0L) {
-        ActionType = other.ActionType;
-      }
-      if (other.ActionJson.Length != 0) {
-        ActionJson = other.ActionJson;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            PlayerId = input.ReadInt64();
-            break;
-          }
-          case 16: {
-            ActionType = input.ReadInt64();
-            break;
-          }
-          case 26: {
-            ActionJson = input.ReadString();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            PlayerId = input.ReadInt64();
-            break;
-          }
-          case 16: {
-            ActionType = input.ReadInt64();
-            break;
-          }
-          case 26: {
-            ActionJson = input.ReadString();
             break;
           }
         }
@@ -1583,7 +1360,7 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[5]; }
+      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1604,8 +1381,9 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PlayerState(PlayerState other) : this() {
       playerId_ = other.playerId_;
+      status_ = other.status_;
       stateJson_ = other.stateJson_;
-      availableActions_ = other.availableActions_.Clone();
+      availableOptions_ = other.availableOptions_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1627,8 +1405,20 @@ namespace BirbParty.Grpc {
       }
     }
 
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 2;
+    private global::BirbParty.Grpc.PlayerStatus status_ = global::BirbParty.Grpc.PlayerStatus.Idle;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::BirbParty.Grpc.PlayerStatus Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
     /// <summary>Field number for the "stateJson" field.</summary>
-    public const int StateJsonFieldNumber = 2;
+    public const int StateJsonFieldNumber = 3;
     private string stateJson_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1639,15 +1429,15 @@ namespace BirbParty.Grpc {
       }
     }
 
-    /// <summary>Field number for the "availableActions" field.</summary>
-    public const int AvailableActionsFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::BirbParty.Grpc.PlayerAction> _repeated_availableActions_codec
-        = pb::FieldCodec.ForMessage(26, global::BirbParty.Grpc.PlayerAction.Parser);
-    private readonly pbc::RepeatedField<global::BirbParty.Grpc.PlayerAction> availableActions_ = new pbc::RepeatedField<global::BirbParty.Grpc.PlayerAction>();
+    /// <summary>Field number for the "availableOptions" field.</summary>
+    public const int AvailableOptionsFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::BirbParty.Grpc.BirbEvent> _repeated_availableOptions_codec
+        = pb::FieldCodec.ForMessage(34, global::BirbParty.Grpc.BirbEvent.Parser);
+    private readonly pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> availableOptions_ = new pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::BirbParty.Grpc.PlayerAction> AvailableActions {
-      get { return availableActions_; }
+    public pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> AvailableOptions {
+      get { return availableOptions_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1666,8 +1456,9 @@ namespace BirbParty.Grpc {
         return true;
       }
       if (PlayerId != other.PlayerId) return false;
+      if (Status != other.Status) return false;
       if (StateJson != other.StateJson) return false;
-      if(!availableActions_.Equals(other.availableActions_)) return false;
+      if(!availableOptions_.Equals(other.availableOptions_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1676,8 +1467,9 @@ namespace BirbParty.Grpc {
     public override int GetHashCode() {
       int hash = 1;
       if (PlayerId != 0L) hash ^= PlayerId.GetHashCode();
+      if (Status != global::BirbParty.Grpc.PlayerStatus.Idle) hash ^= Status.GetHashCode();
       if (StateJson.Length != 0) hash ^= StateJson.GetHashCode();
-      hash ^= availableActions_.GetHashCode();
+      hash ^= availableOptions_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1700,11 +1492,15 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(PlayerId);
       }
+      if (Status != global::BirbParty.Grpc.PlayerStatus.Idle) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Status);
+      }
       if (StateJson.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(StateJson);
       }
-      availableActions_.WriteTo(output, _repeated_availableActions_codec);
+      availableOptions_.WriteTo(output, _repeated_availableOptions_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1719,11 +1515,15 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(PlayerId);
       }
+      if (Status != global::BirbParty.Grpc.PlayerStatus.Idle) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Status);
+      }
       if (StateJson.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(StateJson);
       }
-      availableActions_.WriteTo(ref output, _repeated_availableActions_codec);
+      availableOptions_.WriteTo(ref output, _repeated_availableOptions_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1737,10 +1537,13 @@ namespace BirbParty.Grpc {
       if (PlayerId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(PlayerId);
       }
+      if (Status != global::BirbParty.Grpc.PlayerStatus.Idle) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+      }
       if (StateJson.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(StateJson);
       }
-      size += availableActions_.CalculateSize(_repeated_availableActions_codec);
+      size += availableOptions_.CalculateSize(_repeated_availableOptions_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1756,10 +1559,13 @@ namespace BirbParty.Grpc {
       if (other.PlayerId != 0L) {
         PlayerId = other.PlayerId;
       }
+      if (other.Status != global::BirbParty.Grpc.PlayerStatus.Idle) {
+        Status = other.Status;
+      }
       if (other.StateJson.Length != 0) {
         StateJson = other.StateJson;
       }
-      availableActions_.Add(other.availableActions_);
+      availableOptions_.Add(other.availableOptions_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1779,12 +1585,16 @@ namespace BirbParty.Grpc {
             PlayerId = input.ReadInt64();
             break;
           }
-          case 18: {
-            StateJson = input.ReadString();
+          case 16: {
+            Status = (global::BirbParty.Grpc.PlayerStatus) input.ReadEnum();
             break;
           }
           case 26: {
-            availableActions_.AddEntriesFrom(input, _repeated_availableActions_codec);
+            StateJson = input.ReadString();
+            break;
+          }
+          case 34: {
+            availableOptions_.AddEntriesFrom(input, _repeated_availableOptions_codec);
             break;
           }
         }
@@ -1806,12 +1616,16 @@ namespace BirbParty.Grpc {
             PlayerId = input.ReadInt64();
             break;
           }
-          case 18: {
-            StateJson = input.ReadString();
+          case 16: {
+            Status = (global::BirbParty.Grpc.PlayerStatus) input.ReadEnum();
             break;
           }
           case 26: {
-            availableActions_.AddEntriesFrom(ref input, _repeated_availableActions_codec);
+            StateJson = input.ReadString();
+            break;
+          }
+          case 34: {
+            availableOptions_.AddEntriesFrom(ref input, _repeated_availableOptions_codec);
             break;
           }
         }
@@ -1821,21 +1635,21 @@ namespace BirbParty.Grpc {
 
   }
 
-  public sealed partial class ValidateActionRequest : pb::IMessage<ValidateActionRequest>
+  public sealed partial class ValidateRequest : pb::IMessage<ValidateRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<ValidateActionRequest> _parser = new pb::MessageParser<ValidateActionRequest>(() => new ValidateActionRequest());
+    private static readonly pb::MessageParser<ValidateRequest> _parser = new pb::MessageParser<ValidateRequest>(() => new ValidateRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<ValidateActionRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<ValidateRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[6]; }
+      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1846,7 +1660,7 @@ namespace BirbParty.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateActionRequest() {
+    public ValidateRequest() {
       OnConstruction();
     }
 
@@ -1854,9 +1668,10 @@ namespace BirbParty.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateActionRequest(ValidateActionRequest other) : this() {
+    public ValidateRequest(ValidateRequest other) : this() {
       seed_ = other.seed_;
-      action_ = other.action_ != null ? other.action_.Clone() : null;
+      ownerId_ = other.ownerId_;
+      event_ = other.event_ != null ? other.event_.Clone() : null;
       players_ = other.players_.Clone();
       events_ = other.events_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1864,8 +1679,8 @@ namespace BirbParty.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public ValidateActionRequest Clone() {
-      return new ValidateActionRequest(this);
+    public ValidateRequest Clone() {
+      return new ValidateRequest(this);
     }
 
     /// <summary>Field number for the "seed" field.</summary>
@@ -1880,22 +1695,34 @@ namespace BirbParty.Grpc {
       }
     }
 
-    /// <summary>Field number for the "action" field.</summary>
-    public const int ActionFieldNumber = 2;
-    private global::BirbParty.Grpc.PlayerAction action_;
+    /// <summary>Field number for the "ownerId" field.</summary>
+    public const int OwnerIdFieldNumber = 2;
+    private long ownerId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::BirbParty.Grpc.PlayerAction Action {
-      get { return action_; }
+    public long OwnerId {
+      get { return ownerId_; }
       set {
-        action_ = value;
+        ownerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "event" field.</summary>
+    public const int EventFieldNumber = 3;
+    private global::BirbParty.Grpc.BirbEvent event_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::BirbParty.Grpc.BirbEvent Event {
+      get { return event_; }
+      set {
+        event_ = value;
       }
     }
 
     /// <summary>Field number for the "players" field.</summary>
-    public const int PlayersFieldNumber = 3;
+    public const int PlayersFieldNumber = 4;
     private static readonly pb::FieldCodec<global::BirbParty.Grpc.BirbPlayer> _repeated_players_codec
-        = pb::FieldCodec.ForMessage(26, global::BirbParty.Grpc.BirbPlayer.Parser);
+        = pb::FieldCodec.ForMessage(34, global::BirbParty.Grpc.BirbPlayer.Parser);
     private readonly pbc::RepeatedField<global::BirbParty.Grpc.BirbPlayer> players_ = new pbc::RepeatedField<global::BirbParty.Grpc.BirbPlayer>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1904,9 +1731,9 @@ namespace BirbParty.Grpc {
     }
 
     /// <summary>Field number for the "events" field.</summary>
-    public const int EventsFieldNumber = 4;
+    public const int EventsFieldNumber = 5;
     private static readonly pb::FieldCodec<global::BirbParty.Grpc.BirbEvent> _repeated_events_codec
-        = pb::FieldCodec.ForMessage(34, global::BirbParty.Grpc.BirbEvent.Parser);
+        = pb::FieldCodec.ForMessage(42, global::BirbParty.Grpc.BirbEvent.Parser);
     private readonly pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> events_ = new pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1917,12 +1744,12 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as ValidateActionRequest);
+      return Equals(other as ValidateRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(ValidateActionRequest other) {
+    public bool Equals(ValidateRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1930,7 +1757,8 @@ namespace BirbParty.Grpc {
         return true;
       }
       if (Seed != other.Seed) return false;
-      if (!object.Equals(Action, other.Action)) return false;
+      if (OwnerId != other.OwnerId) return false;
+      if (!object.Equals(Event, other.Event)) return false;
       if(!players_.Equals(other.players_)) return false;
       if(!events_.Equals(other.events_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1941,7 +1769,8 @@ namespace BirbParty.Grpc {
     public override int GetHashCode() {
       int hash = 1;
       if (Seed != 0L) hash ^= Seed.GetHashCode();
-      if (action_ != null) hash ^= Action.GetHashCode();
+      if (OwnerId != 0L) hash ^= OwnerId.GetHashCode();
+      if (event_ != null) hash ^= Event.GetHashCode();
       hash ^= players_.GetHashCode();
       hash ^= events_.GetHashCode();
       if (_unknownFields != null) {
@@ -1966,9 +1795,13 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(Seed);
       }
-      if (action_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Action);
+      if (OwnerId != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(OwnerId);
+      }
+      if (event_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Event);
       }
       players_.WriteTo(output, _repeated_players_codec);
       events_.WriteTo(output, _repeated_events_codec);
@@ -1986,9 +1819,13 @@ namespace BirbParty.Grpc {
         output.WriteRawTag(8);
         output.WriteInt64(Seed);
       }
-      if (action_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Action);
+      if (OwnerId != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(OwnerId);
+      }
+      if (event_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Event);
       }
       players_.WriteTo(ref output, _repeated_players_codec);
       events_.WriteTo(ref output, _repeated_events_codec);
@@ -2005,8 +1842,11 @@ namespace BirbParty.Grpc {
       if (Seed != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Seed);
       }
-      if (action_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Action);
+      if (OwnerId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(OwnerId);
+      }
+      if (event_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Event);
       }
       size += players_.CalculateSize(_repeated_players_codec);
       size += events_.CalculateSize(_repeated_events_codec);
@@ -2018,18 +1858,21 @@ namespace BirbParty.Grpc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(ValidateActionRequest other) {
+    public void MergeFrom(ValidateRequest other) {
       if (other == null) {
         return;
       }
       if (other.Seed != 0L) {
         Seed = other.Seed;
       }
-      if (other.action_ != null) {
-        if (action_ == null) {
-          Action = new global::BirbParty.Grpc.PlayerAction();
+      if (other.OwnerId != 0L) {
+        OwnerId = other.OwnerId;
+      }
+      if (other.event_ != null) {
+        if (event_ == null) {
+          Event = new global::BirbParty.Grpc.BirbEvent();
         }
-        Action.MergeFrom(other.Action);
+        Event.MergeFrom(other.Event);
       }
       players_.Add(other.players_);
       events_.Add(other.events_);
@@ -2052,18 +1895,22 @@ namespace BirbParty.Grpc {
             Seed = input.ReadInt64();
             break;
           }
-          case 18: {
-            if (action_ == null) {
-              Action = new global::BirbParty.Grpc.PlayerAction();
-            }
-            input.ReadMessage(Action);
+          case 16: {
+            OwnerId = input.ReadInt64();
             break;
           }
           case 26: {
-            players_.AddEntriesFrom(input, _repeated_players_codec);
+            if (event_ == null) {
+              Event = new global::BirbParty.Grpc.BirbEvent();
+            }
+            input.ReadMessage(Event);
             break;
           }
           case 34: {
+            players_.AddEntriesFrom(input, _repeated_players_codec);
+            break;
+          }
+          case 42: {
             events_.AddEntriesFrom(input, _repeated_events_codec);
             break;
           }
@@ -2086,18 +1933,22 @@ namespace BirbParty.Grpc {
             Seed = input.ReadInt64();
             break;
           }
-          case 18: {
-            if (action_ == null) {
-              Action = new global::BirbParty.Grpc.PlayerAction();
-            }
-            input.ReadMessage(Action);
+          case 16: {
+            OwnerId = input.ReadInt64();
             break;
           }
           case 26: {
-            players_.AddEntriesFrom(ref input, _repeated_players_codec);
+            if (event_ == null) {
+              Event = new global::BirbParty.Grpc.BirbEvent();
+            }
+            input.ReadMessage(Event);
             break;
           }
           case 34: {
+            players_.AddEntriesFrom(ref input, _repeated_players_codec);
+            break;
+          }
+          case 42: {
             events_.AddEntriesFrom(ref input, _repeated_events_codec);
             break;
           }
@@ -2122,7 +1973,7 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[7]; }
+      get { return global::BirbParty.Grpc.BirbServerReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2142,8 +1993,9 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ValidationResponse(ValidationResponse other) : this() {
-      valid_ = other.valid_;
+      gameState_ = other.gameState_ != null ? other.gameState_.Clone() : null;
       error_ = other.error_;
+      resultingEvents_ = other.resultingEvents_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2153,28 +2005,53 @@ namespace BirbParty.Grpc {
       return new ValidationResponse(this);
     }
 
-    /// <summary>Field number for the "valid" field.</summary>
-    public const int ValidFieldNumber = 1;
-    private bool valid_;
+    /// <summary>Field number for the "gameState" field.</summary>
+    public const int GameStateFieldNumber = 1;
+    private global::BirbParty.Grpc.GameState gameState_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Valid {
-      get { return valid_; }
+    public global::BirbParty.Grpc.GameState GameState {
+      get { return gameState_; }
       set {
-        valid_ = value;
+        gameState_ = value;
       }
     }
 
     /// <summary>Field number for the "error" field.</summary>
     public const int ErrorFieldNumber = 2;
-    private string error_ = "";
+    private readonly static string ErrorDefaultValue = "";
+
+    private string error_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Error {
-      get { return error_; }
+      get { return error_ ?? ErrorDefaultValue; }
       set {
         error_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
+    }
+    /// <summary>Gets whether the "error" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasError {
+      get { return error_ != null; }
+    }
+    /// <summary>Clears the value of the "error" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearError() {
+      error_ = null;
+    }
+
+    /// <summary>Field number for the "resultingEvents" field.</summary>
+    public const int ResultingEventsFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::BirbParty.Grpc.BirbEvent> _repeated_resultingEvents_codec
+        = pb::FieldCodec.ForMessage(26, global::BirbParty.Grpc.BirbEvent.Parser);
+    private readonly pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> resultingEvents_ = new pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::BirbParty.Grpc.BirbEvent> ResultingEvents {
+      get { return resultingEvents_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2192,8 +2069,9 @@ namespace BirbParty.Grpc {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Valid != other.Valid) return false;
+      if (!object.Equals(GameState, other.GameState)) return false;
       if (Error != other.Error) return false;
+      if(!resultingEvents_.Equals(other.resultingEvents_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2201,8 +2079,9 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Valid != false) hash ^= Valid.GetHashCode();
-      if (Error.Length != 0) hash ^= Error.GetHashCode();
+      if (gameState_ != null) hash ^= GameState.GetHashCode();
+      if (HasError) hash ^= Error.GetHashCode();
+      hash ^= resultingEvents_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2221,14 +2100,15 @@ namespace BirbParty.Grpc {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Valid != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(Valid);
+      if (gameState_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(GameState);
       }
-      if (Error.Length != 0) {
+      if (HasError) {
         output.WriteRawTag(18);
         output.WriteString(Error);
       }
+      resultingEvents_.WriteTo(output, _repeated_resultingEvents_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2239,14 +2119,15 @@ namespace BirbParty.Grpc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Valid != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(Valid);
+      if (gameState_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(GameState);
       }
-      if (Error.Length != 0) {
+      if (HasError) {
         output.WriteRawTag(18);
         output.WriteString(Error);
       }
+      resultingEvents_.WriteTo(ref output, _repeated_resultingEvents_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2257,12 +2138,13 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Valid != false) {
-        size += 1 + 1;
+      if (gameState_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GameState);
       }
-      if (Error.Length != 0) {
+      if (HasError) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Error);
       }
+      size += resultingEvents_.CalculateSize(_repeated_resultingEvents_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2275,12 +2157,16 @@ namespace BirbParty.Grpc {
       if (other == null) {
         return;
       }
-      if (other.Valid != false) {
-        Valid = other.Valid;
+      if (other.gameState_ != null) {
+        if (gameState_ == null) {
+          GameState = new global::BirbParty.Grpc.GameState();
+        }
+        GameState.MergeFrom(other.GameState);
       }
-      if (other.Error.Length != 0) {
+      if (other.HasError) {
         Error = other.Error;
       }
+      resultingEvents_.Add(other.resultingEvents_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2296,12 +2182,19 @@ namespace BirbParty.Grpc {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Valid = input.ReadBool();
+          case 10: {
+            if (gameState_ == null) {
+              GameState = new global::BirbParty.Grpc.GameState();
+            }
+            input.ReadMessage(GameState);
             break;
           }
           case 18: {
             Error = input.ReadString();
+            break;
+          }
+          case 26: {
+            resultingEvents_.AddEntriesFrom(input, _repeated_resultingEvents_codec);
             break;
           }
         }
@@ -2319,12 +2212,19 @@ namespace BirbParty.Grpc {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Valid = input.ReadBool();
+          case 10: {
+            if (gameState_ == null) {
+              GameState = new global::BirbParty.Grpc.GameState();
+            }
+            input.ReadMessage(GameState);
             break;
           }
           case 18: {
             Error = input.ReadString();
+            break;
+          }
+          case 26: {
+            resultingEvents_.AddEntriesFrom(ref input, _repeated_resultingEvents_codec);
             break;
           }
         }

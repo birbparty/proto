@@ -53,7 +53,7 @@ namespace BirbParty.Grpc {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::BirbParty.Grpc.GameState> __Marshaller_GameState = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BirbParty.Grpc.GameState.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::BirbParty.Grpc.ValidateActionRequest> __Marshaller_ValidateActionRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BirbParty.Grpc.ValidateActionRequest.Parser));
+    static readonly grpc::Marshaller<global::BirbParty.Grpc.ValidateRequest> __Marshaller_ValidateRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BirbParty.Grpc.ValidateRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::BirbParty.Grpc.ValidationResponse> __Marshaller_ValidationResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::BirbParty.Grpc.ValidationResponse.Parser));
 
@@ -66,11 +66,11 @@ namespace BirbParty.Grpc {
         __Marshaller_GameState);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::BirbParty.Grpc.ValidateActionRequest, global::BirbParty.Grpc.ValidationResponse> __Method_ValidateAction = new grpc::Method<global::BirbParty.Grpc.ValidateActionRequest, global::BirbParty.Grpc.ValidationResponse>(
+    static readonly grpc::Method<global::BirbParty.Grpc.ValidateRequest, global::BirbParty.Grpc.ValidationResponse> __Method_Validate = new grpc::Method<global::BirbParty.Grpc.ValidateRequest, global::BirbParty.Grpc.ValidationResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "ValidateAction",
-        __Marshaller_ValidateActionRequest,
+        "Validate",
+        __Marshaller_ValidateRequest,
         __Marshaller_ValidationResponse);
 
     /// <summary>Service descriptor</summary>
@@ -90,7 +90,7 @@ namespace BirbParty.Grpc {
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::System.Threading.Tasks.Task<global::BirbParty.Grpc.ValidationResponse> ValidateAction(global::BirbParty.Grpc.ValidateActionRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::BirbParty.Grpc.ValidationResponse> Validate(global::BirbParty.Grpc.ValidateRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -145,24 +145,24 @@ namespace BirbParty.Grpc {
         return CallInvoker.AsyncUnaryCall(__Method_GetGameState, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::BirbParty.Grpc.ValidationResponse ValidateAction(global::BirbParty.Grpc.ValidateActionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::BirbParty.Grpc.ValidationResponse Validate(global::BirbParty.Grpc.ValidateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ValidateAction(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Validate(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::BirbParty.Grpc.ValidationResponse ValidateAction(global::BirbParty.Grpc.ValidateActionRequest request, grpc::CallOptions options)
+      public virtual global::BirbParty.Grpc.ValidationResponse Validate(global::BirbParty.Grpc.ValidateRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_ValidateAction, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Validate, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::BirbParty.Grpc.ValidationResponse> ValidateActionAsync(global::BirbParty.Grpc.ValidateActionRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::BirbParty.Grpc.ValidationResponse> ValidateAsync(global::BirbParty.Grpc.ValidateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ValidateActionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return ValidateAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::BirbParty.Grpc.ValidationResponse> ValidateActionAsync(global::BirbParty.Grpc.ValidateActionRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::BirbParty.Grpc.ValidationResponse> ValidateAsync(global::BirbParty.Grpc.ValidateRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_ValidateAction, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Validate, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -179,7 +179,7 @@ namespace BirbParty.Grpc {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_GetGameState, serviceImpl.GetGameState)
-          .AddMethod(__Method_ValidateAction, serviceImpl.ValidateAction).Build();
+          .AddMethod(__Method_Validate, serviceImpl.Validate).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -190,7 +190,7 @@ namespace BirbParty.Grpc {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, BirbBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_GetGameState, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::BirbParty.Grpc.GameStateRequest, global::BirbParty.Grpc.GameState>(serviceImpl.GetGameState));
-      serviceBinder.AddMethod(__Method_ValidateAction, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::BirbParty.Grpc.ValidateActionRequest, global::BirbParty.Grpc.ValidationResponse>(serviceImpl.ValidateAction));
+      serviceBinder.AddMethod(__Method_Validate, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::BirbParty.Grpc.ValidateRequest, global::BirbParty.Grpc.ValidationResponse>(serviceImpl.Validate));
     }
 
   }

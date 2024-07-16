@@ -20,7 +20,8 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Birb_GetGameState_FullMethodName = "/Birb/GetGameState"
-	Birb_Validate_FullMethodName     = "/Birb/Validate"
+	Birb_Execute_FullMethodName      = "/Birb/Execute"
+	Birb_GetValue_FullMethodName     = "/Birb/GetValue"
 )
 
 // BirbClient is the client API for Birb service.
@@ -28,7 +29,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BirbClient interface {
 	GetGameState(ctx context.Context, in *GameStateRequest, opts ...grpc.CallOption) (*GameState, error)
-	Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*ValidationResponse, error)
+	Execute(ctx context.Context, in *ExecuteRequest, opts ...grpc.CallOption) (*ExecuteResponse, error)
+	GetValue(ctx context.Context, in *GetValueRequest, opts ...grpc.CallOption) (*GetValueResponse, error)
 }
 
 type birbClient struct {
@@ -48,9 +50,18 @@ func (c *birbClient) GetGameState(ctx context.Context, in *GameStateRequest, opt
 	return out, nil
 }
 
-func (c *birbClient) Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*ValidationResponse, error) {
-	out := new(ValidationResponse)
-	err := c.cc.Invoke(ctx, Birb_Validate_FullMethodName, in, out, opts...)
+func (c *birbClient) Execute(ctx context.Context, in *ExecuteRequest, opts ...grpc.CallOption) (*ExecuteResponse, error) {
+	out := new(ExecuteResponse)
+	err := c.cc.Invoke(ctx, Birb_Execute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *birbClient) GetValue(ctx context.Context, in *GetValueRequest, opts ...grpc.CallOption) (*GetValueResponse, error) {
+	out := new(GetValueResponse)
+	err := c.cc.Invoke(ctx, Birb_GetValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +73,8 @@ func (c *birbClient) Validate(ctx context.Context, in *ValidateRequest, opts ...
 // for forward compatibility
 type BirbServer interface {
 	GetGameState(context.Context, *GameStateRequest) (*GameState, error)
-	Validate(context.Context, *ValidateRequest) (*ValidationResponse, error)
+	Execute(context.Context, *ExecuteRequest) (*ExecuteResponse, error)
+	GetValue(context.Context, *GetValueRequest) (*GetValueResponse, error)
 	MustEmbedUnimplementedBirbServer()
 }
 
@@ -73,8 +85,11 @@ type UnimplementedBirbServer struct {
 func (UnimplementedBirbServer) GetGameState(context.Context, *GameStateRequest) (*GameState, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGameState not implemented")
 }
-func (UnimplementedBirbServer) Validate(context.Context, *ValidateRequest) (*ValidationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Validate not implemented")
+func (UnimplementedBirbServer) Execute(context.Context, *ExecuteRequest) (*ExecuteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Execute not implemented")
+}
+func (UnimplementedBirbServer) GetValue(context.Context, *GetValueRequest) (*GetValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetValue not implemented")
 }
 func (UnimplementedBirbServer) MustEmbedUnimplementedBirbServer() {}
 
@@ -107,20 +122,38 @@ func _Birb_GetGameState_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Birb_Validate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ValidateRequest)
+func _Birb_Execute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExecuteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BirbServer).Validate(ctx, in)
+		return srv.(BirbServer).Execute(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Birb_Validate_FullMethodName,
+		FullMethod: Birb_Execute_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BirbServer).Validate(ctx, req.(*ValidateRequest))
+		return srv.(BirbServer).Execute(ctx, req.(*ExecuteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Birb_GetValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BirbServer).GetValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Birb_GetValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BirbServer).GetValue(ctx, req.(*GetValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -137,8 +170,12 @@ var Birb_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Birb_GetGameState_Handler,
 		},
 		{
-			MethodName: "Validate",
-			Handler:    _Birb_Validate_Handler,
+			MethodName: "Execute",
+			Handler:    _Birb_Execute_Handler,
+		},
+		{
+			MethodName: "GetValue",
+			Handler:    _Birb_GetValue_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

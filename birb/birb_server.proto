@@ -8,11 +8,8 @@ option go_package = "github.com/birbparty/proto/birb";
 // Define what it means to be a birb
 service Birb {
   rpc GetGameState (GameStateRequest) returns (GameState);
-  rpc Validate (ValidateRequest) returns (ValidationResponse);
-}
-
-enum EventType {
-    StartGame = 0;
+  rpc Execute (ExecuteRequest) returns (ExecuteResponse);
+  rpc GetValue (GetValueRequest) returns (GetValueResponse);
 }
 
 enum PlayerStatus {
@@ -34,8 +31,8 @@ enum SessionStatus {
 message BirbEvent {
     optional int64 id = 1;
     int64 playerId = 2;
-    EventType eventType = 3;
-    optional string eventJson = 4;
+    int64 eventType = 3;
+    optional bytes eventBytes = 6;
     optional google.protobuf.Timestamp createdAt = 5;
 }
 
@@ -52,6 +49,7 @@ message GameState {
     SessionStatus status = 2;
     repeated PlayerState playerStates = 3;
     repeated int64 WaitingOnIds = 4;
+    bytes stateBytes = 6;
 }
 
 message GameStateRequest {
@@ -63,20 +61,31 @@ message GameStateRequest {
 message PlayerState {
     int64 playerId = 1;
     PlayerStatus status = 2;
-    string stateJson = 3;
+    bytes stateBytes = 5;
     repeated BirbEvent availableOptions = 4;
 }
 
-message ValidateRequest {
-    int64 seed = 1;
+message ExecuteRequest {
+    int64 gameId = 1;
     int64 ownerId = 2;
     BirbEvent event = 3;
-    repeated BirbPlayer players = 4;
-    repeated BirbEvent events = 5;
 }
 
-message ValidationResponse {
+message ExecuteResponse {
     optional GameState gameState = 1;
     optional string error = 2;
-    repeated BirbEvent resultingEvents = 3;
+    bool success = 3;
+}
+
+message GetValueRequest {
+    int64 gameId = 1;
+    int64 ownerId = 2;
+    string type = 3;
+    optional bytes query = 4;
+}
+
+message GetValueResponse {
+    optional bytes value = 1;
+    optional string error = 2;
+    bool success = 3;
 }
